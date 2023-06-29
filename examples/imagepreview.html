@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>image preview</title>
+    <style>
+        div{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        img{
+            margin: 2em;
+        }
+    </style>
+</head>
+<body>
+    
+    <div>
+        <img id="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4zGCi3zopn2o_TNs3JU18b7GjJKEE_ZvW15Vwfjv4sXFIVQROwOAixqUtkwICmNhShbc&usqp=CAU" alt="choose" height="300">
+        <input id="input" type="file">
+    </div>
+
+    <script>
+        let img = document.getElementById('img'),
+        input = document.getElementById('input');
+
+        input.onchange = (e) =>{
+            if(input.files[0])
+            img.src = URL.createObjectURL(input.files[0]);
+        };
+    </script>
+</body>
+</html>

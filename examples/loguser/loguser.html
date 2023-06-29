@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>perfil</title>
+    <style>
+        *{
+            margin: 0;
+            border: 0;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        .container{
+            margin-top: 5em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(50, 159, 179);
+            color: rgb(240, 248, 255);
+        }
+        .logo{
+            margin: 1rem;
+            background-color: rgb(68, 221, 221);
+            padding: 1em;
+            border-radius: 50%;
+        }
+        h3{
+            font-weight: 500;
+            font-size: 1.5em;
+        }
+        p{
+            font-weight: lighter;
+            font-size: 0.8em;
+            color: rgba(250, 235, 215, 0.836);
+        }
+        button{
+            cursor: pointer;
+            margin: 1em;
+            padding: 1em;
+            background-color: rgb(221, 90, 90);
+            color: rgb(248, 244, 238);
+            border-radius: 5px;
+        }
+        button:hover{
+            background-color: rgb(175, 51, 51);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1 id="iniciales">KL</h1>
+        </div>
+        <div class="info">
+            <h3 id="bienvenida">Hola </h3>
+            <p id="ultvez">Última vista: </p>
+            <p id="ip">IP: </p>
+        </div>
+        <div>
+            <button id="btnSalir">Salir</button>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+        // NOMBRE DE USUSARIO
+        let bienvenida = document.getElementById("bienvenida");
+        let username = localStorage.getItem('username').toUpperCase();
+        
+        bienvenida.innerHTML = `Hola ${username}`;  
+
+        // INICIALES USUARIO
+        let logo = document.querySelector(".logo");
+        let randomColor = () => "#" + Math.floor(Math.random() * 0xffffff).toString(16).padEnd(6, "0");
+        logo.style.backgroundColor = randomColor();
+
+        let iniciales = document.getElementById("iniciales");
+        let inicial = '';
+        inicial = username[0];
+        for(let i=1; i<= username.length; i++){
+            if(inicial.length > 1) break;
+            if(username[i-1] === " ") {
+                inicial += username[i];
+                break;
+            }
+        }
+
+        iniciales.innerHTML = inicial;
+
+        // FECHA ULTIMA VEZ
+        let hoy = new Date();
+        let ultvez = document.getElementById("ultvez");
+        const opciones = { weekday: 'long', year: 'numeric', month: '2-digit', day: 'numeric', hour12: true, hour: 'numeric', minute: '2-digit'};
+        
+        ultvez.innerHTML = `Última vista: ${hoy.toLocaleDateString('es-CO', opciones)}`;
+        
+        // IP USUARIO
+        let ip = document.getElementById("ip");
+        let publicIP; 
+        async function obtenerIP(){   
+            await fetch('https://api.ipify.org/?format=json')
+            .then(response => response.json())
+            .then(data => {
+                publicIP = data.ip;
+                // console.log("La dirección IP pública es: " + publicIP);
+                ip.innerHTML = `IP: ${publicIP}`;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
+        obtenerIP();
+
+        // CERRAR SESION
+        let btnSalir = document.getElementById('btnSalir');
+
+        btnSalir.addEventListener("click", ()=>{
+            localStorage.removeItem('username');
+            window.location.href = "index.html";
+        })
+        
+    </script>
+    
+</body>
+</html>

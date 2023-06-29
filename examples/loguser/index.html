@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20vh;
+        }
+    </style>
+</head>
+<body>
+    <input id="nameuser" type="text">
+    <label for="nameuser">Nombre completo</label>
+    <button>Iniciar</button>
+
+    <script>
+        let input = document.querySelector('#nameuser'),
+        button = document.querySelector('button');
+
+        button.addEventListener("click", ()=>{
+            //* directo no JSON
+            if(input.value < 2){
+                alert("el nombre debe ser de minimo 2 letras");
+            }else{
+                localStorage.setItem('username', input.value);
+                // let username = localStorage.getItem('username');
+    
+                // let nameJSON = JSON.stringify(input.value);
+                // localStorage.setItem('username', nameJSON);
+    
+                // let userJSON = localStorage.getItem('username');
+                // let username = JSON.parse(userJSON);
+    
+                // console.log(username);
+                input.value = ""
+                
+                // // Redireccionar a una URL específica
+                // window.location.href = "https://www.ejemplo.com";
+
+                // Redireccionar a otro documento HTML en el mismo dominio
+                window.location.href = "loguser.html";
+            }
+        })
+
+    </script>
+</body>
+</html>

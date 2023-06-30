@@ -36,14 +36,25 @@
         if (input.files[0]) img.src = URL.createObjectURL(input.files[0]);
       };
 
-    // prueba funcionals  
-      addEventListener("visibilitychange", (e) => {
-        if (e.target.visibilityState != "visible") {
-          console.log("Te fuiste, no?");
+    // // prueba funcionals  
+    //   addEventListener("visibilitychange", (e) => {
+    //     if (e.target.visibilityState != "visible") {
+    //       console.log("Te fuiste, no?");
+    //     } else {
+    //       console.log("Y ya volviste °_°");
+    //     }
+    //   });
+
+      function handleVisibilityChange() {
+        if (document.visibilityState === 'visible') {
+            console.log('El usuario volvió a la pestaña');
         } else {
-          console.log("Y ya volviste °_°");
+            console.log('El usuario cambió de pestaña o abrió otra aplicación');
         }
-      });
+      }
+
+      document.addEventListener('visibilitychange', handleVisibilityChange);
+
     </script>
   </body>
 </html>
